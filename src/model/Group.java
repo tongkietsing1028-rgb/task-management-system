@@ -12,6 +12,9 @@ public class Group {
         this.groupName = groupName;
         this.memberIds = memberIds;
     }
+    //default constructor
+    public Group() {
+    }
     //getter and setter
     public String getGroupId() {
         return groupId;

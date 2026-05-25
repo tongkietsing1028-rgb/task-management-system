@@ -13,12 +13,14 @@ public class Task
     TaskPriority priority;
 
     //constructor
-    public Task(String taskId, String title, String description, String ownerId, String groupId) {
+    public Task(String taskId, String title, String description, String ownerId, String groupId, TaskStatus status, TaskPriority priority) {
         this.taskId = taskId;
         this.title = title;
         this.description = description;
         this.ownerId = ownerId;
         this.groupId = groupId;
+        this.status = status;
+        this.priority = priority;
     }
     //getter and setter
     public String getTaskId() {
@@ -50,5 +52,17 @@ public class Task
     }
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+    public TaskStatus getStatus() {
+        return status;
+    }
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+    public TaskPriority getPriority() {
+        return priority;
+    }
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
     }
 }
