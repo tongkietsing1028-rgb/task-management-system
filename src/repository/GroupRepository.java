@@ -13,10 +13,11 @@ public class GroupRepository {
         Group group = new Group();
         group.setGroupId(parts[0]);
         group.setGroupName(parts[1]);
+        group.setOwnerId(parts[2]);
         List<String> memberIds = new ArrayList<>();
-        if(!parts[2].isEmpty())
+        if(!parts[3].isEmpty())
         {
-            String[]members = parts[2].split(",");
+            String[]members = parts[3].split(",");
             for(String member :members)
             {
                 memberIds.add(member);

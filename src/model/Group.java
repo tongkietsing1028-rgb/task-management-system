@@ -5,12 +5,14 @@ public class Group {
     private String groupId;
     private String groupName;
     private List<String> memberIds;
+    private String ownerId;
 
     //constructor
-    public Group(String groupId, String groupName, List<String> memberIds) {
+    public Group(String groupId, String groupName, String ownerId,List<String> memberIds) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.memberIds = memberIds;
+        this.ownerId = ownerId;
     }
     //default constructor
     public Group() {
@@ -33,5 +35,11 @@ public class Group {
     }
     public void setMemberIds(List<String> memberIds) {
         this.memberIds = memberIds;
+    }
+    public String getOwnerId() {
+        return ownerId;
+    }
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }
