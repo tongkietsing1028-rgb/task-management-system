@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
-    private static final String USER_FILE_PATH = "data/users.txt";
+    private static final String USER_FILE_PATH = "src/data/users.txt";
     private static User fromLine(String line)
     {
         String[] parts = line.split("\\|");

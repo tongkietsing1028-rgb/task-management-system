@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TaskRepository {
 
-        private static final String TASK_FILE_PATH = "data/tasks.txt";
+        private static final String TASK_FILE_PATH = "src/data/tasks.txt";
         private static Task fromLine(String line)
         {
             String[] parts = line.split("\\|");

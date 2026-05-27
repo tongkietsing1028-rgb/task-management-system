@@ -31,17 +31,5 @@ public class AuthService {
         }
         return user;
     }
-    public static boolean changePassword(String userId, String oldPwd, String newPwd)
-    {
-        User user = UserRepository.findByUserId(userId);
-        if(user==null || !user.getPassword().equals(oldPwd))
-        {
-            return false;
-        }
-        user.setPassword(newPwd);
-        UserRepository.update(user);
-        return true;
-    }
-
 
 }

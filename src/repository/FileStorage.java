@@ -32,6 +32,7 @@ public class FileStorage {
                 bw.write(line);
                 bw.newLine();
             }
+            bw.close();
         }
         catch(IOException e){
             System.out.println("File write error：" + filePath);

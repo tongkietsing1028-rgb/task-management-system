@@ -4,11 +4,13 @@ public class User {
     String userId;
     String username;
     String password;
+    String groupId;
     //constructor
     public User(String userId, String username, String password) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.groupId = null;
     }
     //getterters and setters
     public String getUserId() {
@@ -28,5 +30,11 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getGroupId() {
+        return groupId;
+    }
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 }

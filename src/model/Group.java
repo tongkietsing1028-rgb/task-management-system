@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
@@ -31,7 +32,7 @@ public class Group {
         this.groupName = groupName;
     }
     public List<String> getMemberIds() {
-        return memberIds;
+        return this.memberIds;
     }
     public void setMemberIds(List<String> memberIds) {
         this.memberIds = memberIds;
@@ -41,5 +42,14 @@ public class Group {
     }
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
+    }
+    public void addMember(String memberId)
+    {
+        memberIds.add(memberId);
+    }
+
+    public void removeMember(String memberId)
+    {
+        memberIds.remove(memberId);
     }
 }

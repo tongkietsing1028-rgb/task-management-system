@@ -11,14 +11,14 @@ import util.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskService {
-    public static Task createTask(String title, String description, TaskPriority priority, User user)
+public  class TaskService {
+    public static Task createTask(String title, String description, TaskPriority priority, User user,String groupId)
     {
         if(title==null || title.isEmpty() || description==null || description.isEmpty() || priority==null)
         {
             return null;
         }
-        Task task = new Task(IdGenerator.generateTaskId(),title, description, user.getUserId(), null, TaskStatus.TODO,priority);
+        Task task = new Task(IdGenerator.generateTaskId(),title, description, user.getUserId(), groupId, TaskStatus.TODO,priority);
         TaskRepository.save(task);
 
         return task;
@@ -101,10 +101,6 @@ public class TaskService {
         return true;
     }
 
-    public static boolean completeTask(String taskId)
-    {
-        return updateTaskStatus(taskId, TaskStatus.COMPLETED);
-    }
 
     public static List<Task> searchTasks(String keyword)
     {

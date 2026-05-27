@@ -5,6 +5,7 @@ import model.Task;
 import model.User;
 import model.enums.TaskPriority;
 import repository.GroupRepository;
+import repository.UserRepository;
 import util.IdGenerator;
 
 import java.time.LocalDate;
@@ -23,6 +24,10 @@ public class GroupService {
 
     public static boolean addMember(String groupId,String memberId)
     {
+        if(UserRepository.findByUserId(memberId) == null)
+        {
+            return false;
+        }
         Group group = GroupRepository.findByGroupId(groupId);
         if(group == null)
         {
@@ -32,7 +37,7 @@ public class GroupService {
         {
             return false;
         }
-        group.getMemberIds().add(memberId);
+        group.addMember(memberId);
         GroupRepository.update(group);
         return true;
     }
@@ -48,7 +53,7 @@ public class GroupService {
         {
             return false;
         }
-        group.getMemberIds().remove(userId);
+        group.removeMember(userId);
         GroupRepository.update(group);
         return true;
     }
