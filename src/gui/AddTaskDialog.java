@@ -48,7 +48,7 @@ public class AddTaskDialog extends JDialog {
 
         contentPanel.add(new JLabel("Group (optional):"));
         groupComboBox = new JComboBox<>();
-        groupComboBox.addItem("None");  // 默认不分配 group
+        groupComboBox.addItem("None");
         userGroups = GroupService.getGroupsByUser(user.getUserId());
         for (Group g : userGroups) {
             groupComboBox.addItem(g.getGroupName());

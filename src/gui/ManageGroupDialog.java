@@ -54,7 +54,7 @@ public class ManageGroupDialog extends JDialog {
     {
         memberListModel.clear();
 
-        // 铁面无私地从最新的文本文件里拉数据
+
         Group latestGroup = GroupService.findGroupById(targetGroupId);
 
         if (latestGroup == null)
