@@ -13,6 +13,9 @@ public class TaskRepository {
         private static final String TASK_FILE_PATH = "src/data/tasks.txt";
         private static Task fromLine(String line)
         {
+            if (line == null || line.trim().isEmpty()) {
+                return null;
+            }
             String[] parts = line.split("\\|");
             Task task = new Task(parts[0],parts[1],parts[2],parts[3],parts[4], TaskStatus.valueOf(parts[5]), TaskPriority.valueOf(parts[6]));
             return task;
@@ -34,7 +37,10 @@ public class TaskRepository {
             List<Task>tasks=new ArrayList<>();
             for(String line:lines)
             {
-                tasks.add(fromLine(line));
+                Task task = fromLine(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
             return tasks;
         }

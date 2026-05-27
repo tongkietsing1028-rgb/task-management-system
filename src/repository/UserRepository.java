@@ -8,6 +8,9 @@ public class UserRepository {
     private static final String USER_FILE_PATH = "src/data/users.txt";
     private static User fromLine(String line)
     {
+        if (line == null || line.trim().isEmpty()) {
+            return null;
+        }
         String[] parts = line.split("\\|");
         User user = new User(parts[0],parts[1],parts[2]);
         return user;
@@ -29,7 +32,10 @@ public class UserRepository {
         List<User>users=new ArrayList<>();
         for(String line:lines)
         {
-            users.add(fromLine(line));
+            User user = fromLine(line);
+            if (user != null) {
+                users.add(user);
+            }
         }
         return users;
     }
