@@ -116,6 +116,43 @@ public  class TaskService {
         return searchTasks;
     }
 
+    public static void assignGroupTasksToMember(String groupId,String newMemberId)
+    {
+        List<Task> groupTasks = getTasksByGroup(groupId);
+        List <Task> memberExistTasks = getTaskByUser(newMemberId);
+        for(var task:groupTasks)
+        {
+            boolean alreadyHas = memberExistTasks.stream().anyMatch(t -> t.getGroupId().equals(groupId)&& t.getTitle().equals(task.getTitle()));
+            if(!alreadyHas)
+            {
+                Task newTask = new Task(
+                        IdGenerator.generateTaskId(),
+                        task.getTitle(),
+                        task.getDescription(),
+                        newMemberId,
+                        groupId,
+                        task.getStatus(),
+                        task.getPriority()
+                );
+                TaskRepository.save(newTask);
+            }
+        }
+    }
+
+    public static void removeGroupTasksFromMember(String groupId,String newMemberId)
+    {
+        List<Task> groupTasks = getTasksByGroup(groupId);
+        List <Task> memberExistTasks = getTaskByUser(newMemberId);
+        for(var task:groupTasks)
+        {
+            boolean alreadyHas = memberExistTasks.stream().anyMatch(t -> t.getGroupId().equals(groupId)&& t.getTitle().equals(task.getTitle()));
+            if(alreadyHas)
+            {
+                TaskRepository.delete(task.getTaskId());
+            }
+        }
+    }
+
 
 
 

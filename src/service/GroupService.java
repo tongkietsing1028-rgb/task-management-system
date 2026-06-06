@@ -39,6 +39,7 @@ public class GroupService {
         }
         group.addMember(memberId);
         GroupRepository.update(group);
+        TaskService.assignGroupTasksToMember(groupId, memberId);
         return true;
     }
 
@@ -55,6 +56,7 @@ public class GroupService {
         }
         group.removeMember(userId);
         GroupRepository.update(group);
+        TaskService.removeGroupTasksFromMember(groupId, userId);
         return true;
     }
 
@@ -76,17 +78,7 @@ public class GroupService {
         return GroupRepository.findByGroupId(groupId);
     }
 
-    public static boolean renameGroup(String groupId, String newName)
-    {
-        Group group = GroupRepository.findByGroupId(groupId);
-        if(group == null)
-        {
-            return false;
-        }
-        group.setGroupName(newName);
-        GroupRepository.update(group);
-        return true;
-    }
+
 
     public static boolean deleteGroup(String groupId)
     {

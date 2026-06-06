@@ -175,9 +175,13 @@ public class TaskPanel extends JPanel {
         Task task = TaskService.findTaskById(taskId);
         if (task == null) return;
         if (task.getPriority() == TaskPriority.HIGH) {
-            TaskService.updateTaskPriority(taskId, TaskPriority.MEDIUM);
-        } else {
+            TaskService.updateTaskPriority(taskId, TaskPriority.LOW);
+        }
+        else if (task.getPriority() == TaskPriority.MEDIUM) {
             TaskService.updateTaskPriority(taskId, TaskPriority.HIGH);
+        }
+        else if (task.getPriority() == TaskPriority.LOW) {
+            TaskService.updateTaskPriority(taskId, TaskPriority.MEDIUM);
         }
 
         loadTableData();

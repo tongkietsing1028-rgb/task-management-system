@@ -70,6 +70,7 @@ public class LoginFrame extends JFrame {
 
         if(user != null) {
             statusLabel.setText("Login successful");
+            statusLabel.setForeground(Color.GREEN);
             setVisible(false);
             new MainFrame(user);
             dispose();
@@ -87,6 +88,7 @@ public class LoginFrame extends JFrame {
         boolean isSuccess = authService.register(username, password);
         if(isSuccess) {
             statusLabel.setText("Registration successful");
+            statusLabel.setForeground(Color.GREEN);
         }
         else {
             statusLabel.setText("Registration failed");

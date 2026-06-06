@@ -153,7 +153,7 @@ public class GroupPanel extends JPanel {
 
         Group group = GroupService.findGroupById(groupId);
         if (group == null) return;
-        var manageGroupDialog = new ManageGroupDialog(group);
+        var manageGroupDialog = new ManageGroupDialog(group,user);
         loadTableData();
 
     }

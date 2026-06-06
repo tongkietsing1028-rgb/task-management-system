@@ -1,19 +1,27 @@
 package gui;
 
 import model.Group;
+import model.User;
+import model.enums.TaskPriority;
+import repository.TaskRepository;
+import repository.UserRepository;
 import service.GroupService;
+import service.TaskService;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ManageGroupDialog extends JDialog {
     private final String targetGroupId;
+    private final String currentUserId;
     private DefaultListModel<String> memberListModel;
     private JList<String> memberList;
 
-    public ManageGroupDialog(Group group)
+
+    public ManageGroupDialog(Group group,User currentUser)
     {
         this.targetGroupId = group.getGroupId();
+        this.currentUserId = currentUser.getUserId();
 
 
         setModal(true);
@@ -38,6 +46,11 @@ public class ManageGroupDialog extends JDialog {
         JButton addBtn = new JButton("Add Member");
         JButton removeBtn = new JButton("Remove Member");
         JButton closeBtn = new JButton("Close");
+
+        Group group = GroupService.findGroupById(targetGroupId);
+        boolean isOwner =  group != null && group.getOwnerId().equals(currentUserId);
+        addBtn.setEnabled(isOwner);
+        removeBtn.setEnabled(isOwner);
 
         JPanel southPanel = new JPanel();
         southPanel.add(addBtn);
@@ -81,6 +94,12 @@ public class ManageGroupDialog extends JDialog {
         {
             return;
         }
+
+        Group group = GroupService.findGroupById(targetGroupId);
+        if (group != null && group.getOwnerId().equals(selectedMember)) {
+            JOptionPane.showMessageDialog(this, "Cannot remove the group owner.");
+            return;
+        }
         GroupService.removeMember(targetGroupId, selectedMember);
         loadMembers();
     }
@@ -101,7 +120,10 @@ public class ManageGroupDialog extends JDialog {
         boolean success = GroupService.addMember(targetGroupId, member);
         if(success)
         {
+
+
             JOptionPane.showMessageDialog(this, "Member added successfully");
+            loadMembers();
         }
         else
         {
