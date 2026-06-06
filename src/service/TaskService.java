@@ -1,5 +1,6 @@
 package service;
 
+import model.Group;
 import model.Task;
 import model.User;
 import model.enums.TaskPriority;
@@ -19,6 +20,16 @@ public  class TaskService {
             return null;
         }
         Task task = new Task(IdGenerator.generateTaskId(),title, description, user.getUserId(), groupId, TaskStatus.TODO,priority);
+        if(groupId != null && !groupId.isEmpty()) {
+        Group group = repository.GroupRepository.findByGroupId(groupId);
+        if (group != null) {
+            for (String memberId : group.getMemberIds()) {
+                if (!task.getMemberIds().contains(memberId)) {
+                    task.addMemberId(memberId);
+                }
+            }
+        }
+    }
         TaskRepository.save(task);
 
         return task;
