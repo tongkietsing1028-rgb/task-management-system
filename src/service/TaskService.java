@@ -122,34 +122,20 @@ public  class TaskService {
         List <Task> memberExistTasks = getTaskByUser(newMemberId);
         for(var task:groupTasks)
         {
-            boolean alreadyHas = memberExistTasks.stream().anyMatch(t -> t.getGroupId().equals(groupId)&& t.getTitle().equals(task.getTitle()));
-            if(!alreadyHas)
-            {
-                Task newTask = new Task(
-                        IdGenerator.generateTaskId(),
-                        task.getTitle(),
-                        task.getDescription(),
-                        newMemberId,
-                        groupId,
-                        task.getStatus(),
-                        task.getPriority()
-                );
-                TaskRepository.save(newTask);
-            }
+           if(!task.getMemberIds().contains(newMemberId))
+           {
+               task.addMemberId(newMemberId);
+               TaskRepository.update(task);
+           }
         }
     }
 
     public static void removeGroupTasksFromMember(String groupId,String newMemberId)
     {
-        List<Task> groupTasks = getTasksByGroup(groupId);
-        List <Task> memberExistTasks = getTaskByUser(newMemberId);
-        for(var task:groupTasks)
-        {
-            boolean alreadyHas = memberExistTasks.stream().anyMatch(t -> t.getGroupId().equals(groupId)&& t.getTitle().equals(task.getTitle()));
-            if(alreadyHas)
-            {
-                TaskRepository.delete(task.getTaskId());
-            }
+        List<Task> memberTasks = getTaskByUser(newMemberId);
+        for (Task task : memberTasks) {
+            task.removeMemberId(newMemberId);
+            TaskRepository.update(task);
         }
     }
 

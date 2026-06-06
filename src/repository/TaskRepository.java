@@ -18,12 +18,21 @@ public class TaskRepository {
             }
             String[] parts = line.split("\\|");
             Task task = new Task(parts[0],parts[1],parts[2],parts[3],parts[4], TaskStatus.valueOf(parts[5]), TaskPriority.valueOf(parts[6]));
+
+            if (parts.length > 7 && !parts[7].isEmpty()) {
+                List<String> memberIds = new ArrayList<>(List.of(parts[7].split(",")));
+                task.setMemberIds(memberIds);
+            }
+
+
+
             return task;
         }
 
         private static String toLine(Task task)
         {
-            return task.getTaskId() + "|" + task.getTitle() + "|" + task.getDescription() + "|"+ task.getOwnerId() + "|" + task.getGroupId() + "|" + task.getStatus()+"|"+task.getPriority() ;
+            String members = String.join(",", task.getMemberIds());
+            return task.getTaskId() + "|" + task.getTitle() + "|" + task.getDescription() + "|"+ task.getOwnerId() + "|" + task.getGroupId() + "|" + task.getStatus()+"|"+task.getPriority()+"|"+members;
         }
 
         public static void save(Task task)
@@ -64,7 +73,7 @@ public class TaskRepository {
             List<Task>userTasks=new ArrayList<>();
             for(Task task:tasks)
             {
-                if(task.getOwnerId().equals(userId))
+                if(task.getMemberIds().contains(userId))
                 {
                     userTasks.add(task);
 

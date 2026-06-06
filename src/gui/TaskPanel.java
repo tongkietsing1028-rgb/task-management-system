@@ -19,6 +19,10 @@ public class TaskPanel extends JPanel {
     private JTable taskTable;
     private DefaultTableModel tableModel;
     private JTextField searchField;
+    private JMenuItem deleteMenuItem;
+    private JMenuItem changeStatusMenuItem;
+    private JMenuItem changePriorityMenuItem;
+    private JMenuItem editMenuItem;
 
     private JPopupMenu popupMenu;
 
@@ -52,10 +56,10 @@ public class TaskPanel extends JPanel {
         add(topPanel, BorderLayout.NORTH);
 
         popupMenu = new JPopupMenu();
-        JMenuItem deleteMenuItem = new JMenuItem("Delete");
-        JMenuItem changeStatusMenuItem = new JMenuItem("Change Status");
-        JMenuItem changePriorityMenuItem = new JMenuItem("Change Priority");
-        JMenuItem editMenuItem = new JMenuItem("Edit");
+        deleteMenuItem = new JMenuItem("Delete");
+        changeStatusMenuItem = new JMenuItem("Change Status");
+        changePriorityMenuItem = new JMenuItem("Change Priority");
+        editMenuItem = new JMenuItem("Edit");
         popupMenu.add(deleteMenuItem);
         popupMenu.add(changeStatusMenuItem);
         popupMenu.add(changePriorityMenuItem);
@@ -89,6 +93,16 @@ public class TaskPanel extends JPanel {
                 if(e.isPopupTrigger()) {
                     int row = taskTable.getSelectedRow();
                     if (row >= 0) {
+                        taskTable.setRowSelectionInterval(row, row);
+
+                        String taskId = (String) tableModel.getValueAt(row, 0);
+                        Task task = TaskService.findTaskById(taskId);
+                        boolean isOwner = task != null && task.getOwnerId().equals(user.getUserId());
+                        deleteMenuItem.setVisible(isOwner);
+                        editMenuItem.setVisible(isOwner);
+                        changePriorityMenuItem.setVisible(isOwner);
+                        changeStatusMenuItem.setVisible(isOwner);
+
                         popupMenu.show(taskTable, e.getX(), e.getY());
                     }
                 }

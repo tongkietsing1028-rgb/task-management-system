@@ -56,6 +56,8 @@ public class GroupPanel extends JPanel {
         popupMenu.add(viewGroupMenuItem);
         popupMenu.add(deleteGroupMenuItem);
 
+
+
         groupTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -70,8 +72,19 @@ public class GroupPanel extends JPanel {
             private void showPopupMenu(MouseEvent e)
             {
                 if(e.isPopupTrigger()) {
-                    int row = groupTable.getSelectedRow();
+                    int row = groupTable.rowAtPoint(e.getPoint());
                     if (row >= 0) {
+                        groupTable.setRowSelectionInterval(row, row);
+
+                        String groupId = (String) tableModel.getValueAt(row, 0);
+                        Group group = GroupService.findGroupById(groupId);
+
+
+                        boolean isOwner = group.getOwnerId().equals(user.getUserId());
+                        manageGroupMenuItem.setVisible(isOwner);
+                        deleteGroupMenuItem.setVisible(isOwner);
+                        viewGroupMenuItem.setVisible(true);
+
                         popupMenu.show(groupTable, e.getX(), e.getY());
                     }
                 }

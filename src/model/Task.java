@@ -2,6 +2,9 @@ package model;
 import model.enums.TaskPriority;
 import model.enums.TaskStatus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Task
 {
     private String taskId;
@@ -9,6 +12,7 @@ public class Task
     private String description;
     private String ownerId;
     private String groupId;
+    private List<String> memberIds;
     TaskStatus status;
     TaskPriority priority;
 
@@ -21,6 +25,8 @@ public class Task
         this.groupId = groupId;
         this.status = status;
         this.priority = priority;
+        this.memberIds = new ArrayList<>();
+        this.memberIds.add(ownerId);
     }
     //getter and setter
     public String getTaskId() {
@@ -65,4 +71,8 @@ public class Task
     public void setPriority(TaskPriority priority) {
         this.priority = priority;
     }
+    public List<String> getMemberIds() { return memberIds; }
+    public void setMemberIds(List<String> memberIds) { this.memberIds = memberIds; }
+    public void addMemberId(String memberId) { memberIds.add(memberId); }
+    public void removeMemberId(String memberId) { memberIds.remove(memberId); }
 }
