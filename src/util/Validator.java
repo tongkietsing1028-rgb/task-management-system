@@ -7,7 +7,7 @@ public class Validator {
     }
     public static boolean isValidUsername(String username)
     {
-        return isNotEmpty(username)&&username.length()<= 10&&username.length()>= 3 ;
+        return isNotEmpty(username)&&username.length()<= 50&&username.length()>= 3 ;
     }
 
 

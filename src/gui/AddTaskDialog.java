@@ -51,7 +51,10 @@ public class AddTaskDialog extends JDialog {
         groupComboBox.addItem("None");
         userGroups = GroupService.getGroupsByUser(user.getUserId());
         for (Group g : userGroups) {
-            groupComboBox.addItem(g.getGroupName());
+            if(g.getOwnerId().equals(user.getUserId()))
+            {
+                groupComboBox.addItem(g.getGroupName());
+            }
         }
         contentPanel.add(groupComboBox);
 

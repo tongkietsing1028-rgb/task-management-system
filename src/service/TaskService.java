@@ -119,7 +119,7 @@ public  class TaskService {
         List<Task>searchTasks = new ArrayList<>();
         for(var task:tasks)
         {
-            if(task.getDescription().contains(keyword)||task.getTitle().contains(keyword))
+            if(task.getDescription().contains(keyword)||task.getTitle().contains(keyword)||task.getTaskId().contains(keyword))
             {
                 searchTasks.add(task);
             }
